@@ -8,11 +8,9 @@ fun example() {
 }
 
 val Customer.orderedProducts: Set<Product> get() {
-    // Return all products this customer has ordered
-    todoCollectionTask()
+    return this.orders.map { order -> order.products }.flatMap { it.toList() } .toSet()
 }
 
 val Shop.allOrderedProducts: Set<Product> get() {
-    // Return all products that were ordered by at least one customer
-    todoCollectionTask()
+    return this.customers.map { customer -> customer.orderedProducts } .flatMap { it.toList() } .toSet()
 }
